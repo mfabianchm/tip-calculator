@@ -1,0 +1,74 @@
+<main class="main">
+  <h1 class="title">Spli<br />tter</h1>
+  <div class="calculator-container">
+    <form>
+      <div class="label-error-container">
+        <label for="bill-amount"> Bill </label>
+        <p *ngIf="bill == 0" class="error-text">Can't be zero</p>
+      </div>
+      <input
+        type="number"
+        id="bill-amount"
+        name="bill-amount"
+        placeholder="0"
+        [(ngModel)]="bill"
+        (ngModelChange)="updateBillValue($event)"
+        [ngStyle]="{
+          border: bill == 0 ? '2px red solid' : '2px var(--Strong-cyan) solid'
+        }"
+      />
+      <div class="label-error-container">
+        <label>Select tip %</label>
+        <p *ngIf="final_percentage == 0" class="error-text">Can't be zero</p>
+      </div>
+      <div class="tips-buttons-container" id="tip-percentage">
+        <button
+          id="percentage-btn"
+          *ngFor="let tip of tips_percentages; let i = index"
+          (click)="getValue(i)"
+        >
+          {{ tip.text }}
+        </button>
+        <input
+          type="number"
+          id="custom-input"
+          name="custom-input"
+          placeholder="Custom"
+          [(ngModel)]="custom_percentage"
+          (ngModelChange)="getCustomValue($event)"
+        />
+      </div>
+      <div class="label-error-container">
+        <label for="number-people">Number of people</label>
+        <p *ngIf="number_people == 0" class="error-text">Can't be zero</p>
+      </div>
+      <input
+        type="number"
+        id="number-people"
+        name="number-people"
+        placeholder="0"
+        [(ngModel)]="number_people"
+        (ngModelChange)="updatePeopleValue($event)"
+      />
+    </form>
+    <div class="right-container">
+      <div class="tip-amount">
+        <div class="labels-right-side">
+          <h2>Tip Amount</h2>
+          <p>/ person</p>
+        </div>
+        <h1>${{ tip_amount }}</h1>
+      </div>
+      <div class="total-amount">
+        <div class="labels-right-side">
+          <h2>Total</h2>
+          <p>/ person</p>
+        </div>
+        <h1>${{ total_amount }}</h1>
+      </div>
+      <button class="reset-btn" (click)="resetValues()">RESET</button>
+    </div>
+  </div>
+</main>
+
+<router-outlet></router-outlet>
